@@ -1,12 +1,14 @@
 package com.edutech.progressive.entity;
 
+import java.util.Comparator;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Supplier {
+public class Supplier implements Comparable<Supplier> {
     
     private int supplierId;
     private String supplierName;
@@ -16,7 +18,7 @@ public class Supplier {
     private String username;
     private String password;
     private String role;
-    public Supplier() {
+    public Supplier(){
     }
     public Supplier(int supplierId, String supplierName, String email, String phone, String address, String username,
             String password, String role) {
@@ -77,5 +79,11 @@ public class Supplier {
     public void setRole(String role) {
         this.role = role;
     }
+    @Override
+    public int compareTo(Supplier o) {
+        // TODO Auto-generated method stub
+        return this.getSupplierName().compareToIgnoreCase(o.getSupplierName());
+    }
+    
     
 }
