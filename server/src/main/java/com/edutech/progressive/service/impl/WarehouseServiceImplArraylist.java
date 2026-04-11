@@ -1,14 +1,13 @@
 package com.edutech.progressive.service.impl;
 
 import java.util.ArrayList;
-
+import java.util.Comparator;
 import java.util.List;
-import java.util.*;
+
 import com.edutech.progressive.entity.Warehouse;
 import com.edutech.progressive.service.WarehouseService;
 
 public class WarehouseServiceImplArraylist implements WarehouseService {
-
     private static List<Warehouse> warehouseList = new ArrayList<>();
 
     @Override
@@ -33,5 +32,6 @@ public class WarehouseServiceImplArraylist implements WarehouseService {
     public void emptyArrayList() {
         warehouseList = new ArrayList<>();
     }
+
 
 }

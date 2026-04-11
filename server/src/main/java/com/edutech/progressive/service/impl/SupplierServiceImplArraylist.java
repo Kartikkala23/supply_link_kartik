@@ -7,8 +7,8 @@ import java.util.List;
 import com.edutech.progressive.entity.Supplier;
 import com.edutech.progressive.service.SupplierService;
 
-public class SupplierServiceImplArraylist implements SupplierService {
-
+public class SupplierServiceImplArraylist implements SupplierService 
+{
     private static List<Supplier> supplierList = new ArrayList<>();
 
     @Override
