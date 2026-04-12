@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Supplier implements Comparable<Supplier> {
-    
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int supplierId;
     private String supplierName;
     private String email;
