@@ -1,7 +1,8 @@
 package com.edutech.progressive.controller;
 
 import com.edutech.progressive.entity.Supplier;
-import com.edutech.progressive.service.SupplierService;
+import com.edutech.progressive.service.impl.SupplierServiceImplArraylist;
+import com.edutech.progressive.service.impl.SupplierServiceImplJpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,62 +22,53 @@ import java.util.List;
 @RestController
 @RequestMapping("/supplier")
 public class SupplierController {
-
+    
     @Autowired
-    SupplierService supplierService;
-
+    private SupplierServiceImplJpa supplierServiceImplJpa;
+    
     @GetMapping
-    public ResponseEntity<List<Supplier>> getAllSuppliers() {
-        return null;
+    public ResponseEntity<List<Supplier>> getAllSuppliers() throws SQLException{
+        return ResponseEntity.ok(supplierServiceImplJpa.getAllSuppliers());
     }
-
+    
     @GetMapping("/{supplierId}")
-    public ResponseEntity<Supplier> getSupplierById(
-            @PathVariable Integer supplierId) {
-        return null;
-    }
+    public ResponseEntity<Supplier> getSupplierById(int supplierId) throws SQLException{
+        Supplier s = supplierServiceImplJpa.getSupplierById(supplierId);
+        if(s != null){
+            return new ResponseEntity<>(s, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    } 
 
     @PostMapping
-    public ResponseEntity<Integer> addSupplier(
-            @RequestBody Supplier supplier) {
-        return null;
+    public ResponseEntity<Integer> addSupplier(@RequestBody Supplier supplier)throws SQLException {
+        return ResponseEntity.status(201).body(supplierServiceImplJpa.addSupplier(supplier));
     }
-
+    
     @PutMapping("/{supplierId}")
-    public ResponseEntity<Void> updateSupplier(
-            @PathVariable Integer supplierId,
-            @RequestBody Supplier supplier) {
-        return null;
+    public ResponseEntity<Void> updateSupplier(@PathVariable int supplierId,@RequestBody Supplier supplier) throws SQLException{
+        supplierServiceImplJpa.updateSupplier(supplier);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    
     @DeleteMapping("/{supplierId}")
-    public ResponseEntity<Void> deleteSupplier(
-            @PathVariable Integer supplierId) {
-        return null;
+    public ResponseEntity<Void> deleteSupplier(@PathVariable int supplierId) throws SQLException{
+        supplierServiceImplJpa.deleteSupplier(supplierId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    
     @GetMapping("/fromArrayList")
-    public ResponseEntity<List<Supplier>> getAllSuppliersFromArrayList() throws SQLException {
-
-        List<Supplier> list = supplierService.getAllSuppliers();
-
-        return new ResponseEntity<>(list, HttpStatus.OK);
+    public ResponseEntity<List<Supplier>> getAllSuppliersFromArrayList()throws SQLException {
+        return ResponseEntity.ok(supplierServiceImplJpa.getAllSuppliers());
     }
-
+    
     @PostMapping("/toArrayList")
-    public ResponseEntity<Integer> addSupplierToArrayList(
-            @RequestBody Supplier supplier) throws SQLException {
-
-        int id = supplierService.addSupplier(supplier);
-
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
+    public ResponseEntity<Integer> addSupplierToArrayList(Supplier supplier)throws SQLException {
+        return ResponseEntity.status(201).body(supplierServiceImplJpa.addSupplier(supplier));
     }
-
+    
     @GetMapping("/fromArrayList/all")
-    public ResponseEntity<List<Supplier>> getAllSuppliersSortedByNameFromArrayList() throws SQLException {
-
-        List<Supplier> sortedList = supplierService.getAllSuppliersSortedByName();
-
-        return new ResponseEntity<>(sortedList, HttpStatus.OK);
+    public ResponseEntity<List<Supplier>> getAllSuppliersSortedByNameFromArrayList() throws SQLException{
+        return ResponseEntity.ok(supplierServiceImplJpa.getAllSuppliersSortedByName());
     }
 }
