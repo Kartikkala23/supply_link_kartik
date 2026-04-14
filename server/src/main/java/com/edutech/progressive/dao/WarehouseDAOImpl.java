@@ -20,7 +20,7 @@ public class WarehouseDAOImpl implements WarehouseDAO {
         try (Connection connection = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            ps.setInt(1, warehouse.getSupplierId());
+            ps.setInt(1, warehouse.getSupplier().getSupplierId());
             ps.setString(2, warehouse.getWarehouseName());
             ps.setString(3, warehouse.getLocation());
             ps.setInt(4, warehouse.getCapacity());
@@ -52,7 +52,7 @@ public class WarehouseDAOImpl implements WarehouseDAO {
                 if (rs.next()) {
                     Warehouse warehouse = new Warehouse();
                     warehouse.setWarehouseId(rs.getInt("warehouse_id"));
-                    warehouse.setSupplierId(rs.getInt("supplier_id"));
+                   warehouse.getSupplier().setSupplierId(rs.getInt("supplier_id"));
                     warehouse.setWarehouseName(rs.getString("warehouse_name"));
                     warehouse.setLocation(rs.getString("location"));
                     warehouse.setCapacity(rs.getInt("capacity"));
@@ -71,7 +71,7 @@ public class WarehouseDAOImpl implements WarehouseDAO {
         try (Connection connection = DatabaseConnectionManager.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
-            ps.setInt(1, warehouse.getSupplierId());
+            ps.setInt(1, warehouse.getSupplier().getSupplierId());
             ps.setString(2, warehouse.getWarehouseName());
             ps.setString(3, warehouse.getLocation());
             ps.setInt(4, warehouse.getCapacity());
@@ -105,7 +105,7 @@ public class WarehouseDAOImpl implements WarehouseDAO {
             while (rs.next()) {
                 Warehouse warehouse = new Warehouse();
                 warehouse.setWarehouseId(rs.getInt("warehouse_id"));
-                warehouse.setSupplierId(rs.getInt("supplier_id"));
+               warehouse.getSupplier().setSupplierId(rs.getInt("supplier_id"));
                 warehouse.setWarehouseName(rs.getString("warehouse_name"));
                 warehouse.setLocation(rs.getString("location"));
                 warehouse.setCapacity(rs.getInt("capacity"));
@@ -113,7 +113,6 @@ public class WarehouseDAOImpl implements WarehouseDAO {
                 warehouses.add(warehouse);
             }
         }
-
         return warehouses;
     }
 }
