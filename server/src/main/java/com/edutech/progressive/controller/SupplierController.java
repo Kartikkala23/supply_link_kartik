@@ -34,7 +34,7 @@ public class SupplierController {
     }
     
     @GetMapping("/{supplierId}")
-    public ResponseEntity<Supplier> getSupplierById(int supplierId) {
+    public ResponseEntity<Supplier> getSupplierById(@PathVariable int supplierId) {
         return ResponseEntity.ok(supplierServiceImplJpa.getSupplierById(supplierId));
     } 
 
@@ -50,7 +50,7 @@ public class SupplierController {
     }
     
     @DeleteMapping("/{supplierId}")
-    public ResponseEntity<Void> deleteSupplier(int supplierId) {
+    public ResponseEntity<Void> deleteSupplier(@PathVariable int supplierId) {
         return ResponseEntity.ok().build();
     }
     

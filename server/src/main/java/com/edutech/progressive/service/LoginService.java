@@ -1,39 +1,79 @@
 package com.edutech.progressive.service;
 
 import com.edutech.progressive.entity.Supplier;
+import com.edutech.progressive.exception.SupplierAlreadyExistsException;
+import com.edutech.progressive.repository.SupplierRepository;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
 public class LoginService implements UserDetailsService {
 
-    public List<Supplier> getAllUsers() {
-        return null;
+    private final SupplierRepository supplierRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public LoginService(SupplierRepository supplierRepository, PasswordEncoder passwordEncoder) {
+        this.supplierRepository = supplierRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public Optional<Supplier> getUserById(Integer userId) {
-        return null;
+    public List<Supplier> getAllUsers() {
+        return supplierRepository.findAll();
+    }
+
+    public Optional<Supplier> getUserById(int userId) {
+        return supplierRepository.findById(userId);
     }
 
     public Supplier getSupplierByName(String username) {
-        return null;
+        return supplierRepository.findByUsername(username);
     }
 
     public Supplier createUser(Supplier user) {
-        return null;
+        Supplier oldUser = supplierRepository.findByUsername(user.getUsername());
+        if (oldUser != null) {
+            throw new SupplierAlreadyExistsException("User name Is Unavailable: " + user.getUsername());
+
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return supplierRepository.save(user);
     }
 
     public Supplier updateUser(Supplier user) {
-        return null;
+        return supplierRepository.save(user);
     }
 
-    public void deleteUser(Integer id) {
+    public void deleteUser(int id) {
+        supplierRepository.deleteBySupplierId(id);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        return null;
+        Supplier user = supplierRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                new ArrayList<>());
     }
 }
