@@ -48,7 +48,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Integer> addProduct(@RequestBody Product product) {
          try {
-            return ResponseEntity.ok(productServiceImplJpa.addProduct(product));
+            return ResponseEntity.status(201).body(productServiceImplJpa.addProduct(product));
         } catch (SQLException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
