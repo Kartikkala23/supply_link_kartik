@@ -1,0 +1,16 @@
+.warehouse-details {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  max-width: 400px;
+}
+
+.warehouse-details h2 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.warehouse-details p {
+  margin: 0.5rem 0;
+}
