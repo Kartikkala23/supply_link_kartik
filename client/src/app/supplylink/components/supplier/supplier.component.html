@@ -1,0 +1,43 @@
+<form [formGroup]="supplierForm" (ngSubmit)="onSubmit()" class="supplier-form">
+  <div>
+    <label for="name">Name</label>
+    <input id="name" formControlName="name" />
+    <span *ngIf="supplierForm.get('name')?.touched && supplierForm.get('name')?.invalid">
+      Name is required
+    </span>
+  </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input id="email" formControlName="email" />
+    <span *ngIf="supplierForm.get('email')?.touched && supplierForm.get('email')?.invalid">
+      Valid email is required
+    </span>
+  </div>
+
+  <div>
+    <label for="username">Username</label>
+    <input id="username" formControlName="username" />
+    <span *ngIf="supplierForm.get('username')?.touched && supplierForm.get('username')?.invalid">
+      Username is required
+    </span>
+  </div>
+
+  <div>
+    <label for="password">Password</label>
+    <input id="password" type="password" formControlName="password" />
+    <span *ngIf="supplierForm.get('password')?.touched && supplierForm.get('password')?.invalid">
+      Password is required
+    </span>
+  </div>
+
+  <button type="submit" [disabled]="supplierForm.invalid">Submit</button>
+</form>
+
+<!-- Success/Error messages -->
+<div *ngIf="supplierSuccess$ | async" class="success-message">
+  Supplier created successfully!
+</div>
+<div *ngIf="supplierError$ | async" class="error-message">
+  Please fill out all required fields correctly.
+</div>
