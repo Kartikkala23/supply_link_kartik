@@ -1,0 +1,51 @@
+<div class="product-form-container">
+  <h2>Product Management</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-control">
+      <label>Product ID </label>
+      <input type="text" formControlName="productId">
+    </div>
+
+    <div class="form-control">
+      <label>Warehouse ID </label>
+      <input type="number" formControlName="warehouseId">
+      <div *ngIf="productForm.get('warehouseId')?.invalid && productForm.get('warehouseId')?.touched">
+        <small>Warehouse ID is required and must be greater than 0.</small>
+      </div>
+    </div>
+
+    <!-- Product Name -->
+    <div class="form-control">
+      <label>Product Name </label>
+      <input type="text" formControlName="productName">
+      <div *ngIf="productForm.get('productName')?.invalid && productForm.get('productName')?.touched">
+        <small>Product Name is required.</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label>Product Description </label>
+      <textarea formControlName="productDescription"></textarea>
+    </div>
+
+    <div class="form-control">
+      <label>Quantity </label>
+      <input type="number" formControlName="quantity">
+      <div *ngIf="productForm.get('quantity')?.invalid && productForm.get('quantity')?.touched">
+        <small>Quantity is required and cannot be negative.</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label>Price </label>
+      <input type="number" formControlName="price">
+      <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">
+        <small>Price is required and must be greater than 0.</small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="productForm.invalid">Submit</button>
+  </form>
+</div>

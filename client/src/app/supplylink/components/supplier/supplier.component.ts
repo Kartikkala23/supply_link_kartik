@@ -1,52 +1,74 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
 import { Supplier } from '../../types/Supplier';
-
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { of } from 'rxjs';
+// import { SupplyLinkService } from '../../services/supplylink.service';
+// import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-supplier',
-  templateUrl: './supplier.component.html',
-  styleUrls: ['./supplier.component.scss']
+    selector: 'app-supplier',
+    templateUrl: './supplier.component.html',
+    styleUrls: ['./supplier.component.scss'],
 })
 export class SupplierComponent implements OnInit {
-  supplierForm!: FormGroup;
+    successMessage: string | null = null;
+    errorMessage: string | null = null;
+    supplierForm!: FormGroup;
+    supplier: Supplier | null = null;
 
-  supplier: Supplier = new Supplier(
-    1,
-    'Alice Johnson',
-    'alice@example.com',
-    '1234567890',
-    '123 Main St',
-    'alicej',
-    'pass123',
-    'Admin'
-  );
+    constructor(
+        private formBuilder: FormBuilder,
+        //  private supplyLinkService: SupplyLinkService
+    ) { }
 
-  supplierSuccess$ = new BehaviorSubject<boolean>(false);
-  supplierError$ = new BehaviorSubject<boolean>(false);
-
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit(): void {
-    this.supplierForm = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-  }
-
-  onSubmit(): void {
-    if (this.supplierForm.valid) {
-      this.supplierSuccess$.next(true);
-      this.supplierError$.next(false);
-      console.log('Supplier created:', this.supplierForm.value);
-      this.supplierForm.reset();
-    } else {
-      this.supplierSuccess$.next(false);
-      this.supplierError$.next(true);
+    ngOnInit(): void {
+        this.supplierForm = this.formBuilder.group({
+            supplierName: ["", [Validators.required]],
+            email: ["", [Validators.required, Validators.email]],
+            phone: [""],
+            address: [""],
+            username: ["", [Validators.required, this.noSpecialCharacters]],
+            password: ["", [Validators.required, Validators.minLength(8)]],
+            role: ["", [Validators.required]]
+        });
     }
-  }
+
+    private noSpecialCharacters(control: any): { [key: string]: boolean } | null {
+        const SPECIAL_CHARACTERS_REGEX = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+        if (SPECIAL_CHARACTERS_REGEX.test(control.value)) {
+            return { specialCharacters: true };
+        }
+        return null;
+    }
+
+    onSubmit(): void {
+        // if (this.supplierForm.valid) {
+        //   this.supplyLinkService.addSupplier(this.supplierForm.value).subscribe({
+        //     next: (response) => {
+        //       this.supplier = response;
+        //       this.successMessage = 'Supplier created successfully';
+        //       this.errorMessage = null;
+        //       this.supplierForm.reset();
+        //     },
+        //    // error: (error) => this.handleError(error)
+        //   });
+        // } else {
+        //   this.errorMessage = 'Please fill out all required fields correctly.';
+        //   this.successMessage = null;
+        // }
+    }
+
+    // private handleError(error: HttpErrorResponse): void {
+    //   if (error.error instanceof ErrorEvent) {
+    //     this.errorMessage = `Client-side error: ${error.error.message}`;
+    //   } else {
+    //     this.errorMessage = `Server-side error: ${error.status} ${error.message}`;
+    //     if (error.status === 400) {
+    //       this.errorMessage = 'Bad request. Please check your input.';
+    //     }
+    //   }
+    //   this.successMessage = null;
+    //   console.error('An error occurred:', this.errorMessage);
+    // }
+
 }
