@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Warehouse } from '../../types/Warehouse';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Supplier } from "../../types/Supplier";
-//import { SupplyLinkService } from "../../services/supplylink.service";
+import { SupplyLinkService } from "../../services/supplylink.service";
 import { HttpErrorResponse } from "@angular/common/http";
 
 
@@ -20,7 +20,7 @@ export class WarehouseComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-  //  private supplyLinkService: SupplyLinkService
+    private supplyLinkService: SupplyLinkService
   ) { }
 
   ngOnInit(): void {
@@ -34,25 +34,25 @@ export class WarehouseComponent implements OnInit {
   }
 
   loadSuppliers(): void {
-    // this.supplyLinkService.getAllSuppliers().subscribe({
-    //   next: (response) => {
-    //     this.suppliers = response;
-    //   },
-    //   error: (error) => console.log('Error in loading suppliers')
-    // });
+    this.supplyLinkService.getAllSuppliers().subscribe({
+      next: (response) => {
+        this.suppliers = response;
+      },
+      error: (error) => console.log('Error in loading suppliers')
+    });
   }
 
   onSubmit(): void {
     if (this.warehouseForm.valid) {
-      // this.supplyLinkService.addWarehouse(this.warehouseForm.value).subscribe({
-      //   next: (response) => {
-      //     this.warehouse = response;
-      //     this.successMessage = 'Warehouse created successfully';
-      //     this.errorMessage = null;
-      //     this.warehouseForm.reset();
-      //   },
-      //   error: (error) => this.handleError(error)
-      // })
+      this.supplyLinkService.addWarehouse(this.warehouseForm.value).subscribe({
+        next: (response) => {
+          this.warehouse = response;
+          this.successMessage = 'Warehouse created successfully';
+          this.errorMessage = null;
+          this.warehouseForm.reset();
+        },
+        error: (error) => this.handleError(error)
+      })
     } else {
       this.errorMessage = 'Please fill out all required fields correctly.';
       this.successMessage = null;
