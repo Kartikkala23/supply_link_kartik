@@ -6,10 +6,16 @@ import { Warehouse } from '../../types/Warehouse';
   standalone: true,
   imports: [],
   templateUrl: './warehousesample.component.html',
-  styleUrls: ['./warehousesample.component.css'],
-  template: 'Warehouse ID: {{warehouse.warehouseId}}<br>Supplier ID: {{warehouse.supplierId}}<br>Warehouse Name: ${{warehouse.warehouseName}}<br>Location: ${{warehouse.location}}<br>Capacity: ${{warehouse.capacity}}'
+  styleUrls: ['./warehousesample.component.css']
 })
 export class WarehouseSampleComponent {
-  warehouse = new Warehouse(1, "2", "Flamingo", "Nevada", 1000);
+
+  // warehouse = new Warehouse(
+  //   1,          // Warehouse ID
+  //   '12',       // Supplier ID
+  //   'Central Store',  // Warehouse Name
+  //   'Hyderabad',      // Location
+  //   1000       // Capacity
+  // );
 
 }

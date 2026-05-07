@@ -7,16 +7,30 @@ import { HttpClientModule } from "@angular/common/http";
 import { ProductComponent } from "./components/product/product.component";
 import { SupplierComponent } from "./components/supplier/supplier.component";
 import { WarehouseComponent } from "./components/warehouse/warehouse.component";
+import { SharedModule } from "../shared/shared.module";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { WarehouseEditComponent } from "./components/warehouseedit/warehouseedit.component";
+import { SupplierEditComponent } from "./components/supplieredit/supplieredit.component";
+import { LoginComponent } from "../auth/components/login/login.component";
+import { LogoutComponent } from "../auth/components/logout/logout.component";
 @NgModule({
-  declarations: [],
+  declarations: [
+     ProductComponent,
+    SupplierComponent,
+    WarehouseComponent,
+    DashboardComponent,
+    WarehouseEditComponent,
+    SupplierEditComponent
+   
+  ],
   imports: [
     CommonModule,
     SupplyLinkRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ProductComponent,
-    SupplierComponent,
-    WarehouseComponent
+    SharedModule,
+    
+   
   ],
   exports: [
     
