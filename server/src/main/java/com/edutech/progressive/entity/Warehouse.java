@@ -1,39 +1,27 @@
 package com.edutech.progressive.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
-public class Warehouse implements Comparable<Warehouse>{
-    
+public class Warehouse implements Comparable<Warehouse> {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int warehouseId;
     
-    @ManyToOne
-    @JoinColumn(name = "supplier_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "supplierId")
     private Supplier supplier;
-
     private String warehouseName;
-
     private String location;
-
     private int capacity;
 
     public Warehouse() {
     }
 
-    public Warehouse(int warehouseId, Supplier supplier, String warehouseName, String location, int capacity) {
+    public Warehouse(int warehouseId, int supplierId, String warehouseName, String location, int capacity) {
         this.warehouseId = warehouseId;
-        this.supplier = supplier;
+        this.supplier.setSupplierId(supplierId);
         this.warehouseName = warehouseName;
         this.location = location;
         this.capacity = capacity;
@@ -80,7 +68,8 @@ public class Warehouse implements Comparable<Warehouse>{
     }
 
     @Override
-    public int compareTo(Warehouse o) {
-        return Integer.compare(o.getCapacity(), this.getCapacity());
+    public int compareTo(Warehouse otherWarehouse) {
+        // Implement comparison logic based on warehouse capacity
+        return Double.compare(otherWarehouse.getCapacity(), this.getCapacity());
     }
 }

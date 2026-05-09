@@ -10,7 +10,7 @@
             Username is required
         </p>
     </label>
-
+  
     <label>
         Password:
         <input type="password" formControlName="password" />
@@ -22,11 +22,11 @@
             Password is required
         </p>
     </label>
-
+  
     <button type="submit">Log in</button>
     <a routerLink="/auth/add-user" class="task-list" class="task-list">Sign up</a>
-
+  
     <div *ngIf="errorMessage" class="error">
         <p>{{ errorMessage }}</p>
     </div>
-</form>
+  </form>

@@ -1,79 +1,41 @@
-<div class="product-form-container">
-  <h2>Product Management</h2>
-
-  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-
-    <!-- Product ID -->
-    <div class="form-control">
-      <label>Product ID</label>
-      <input type="text" formControlName="productId">
+<app-navbar></app-navbar>
+<form (ngSubmit)="onSubmit()" [formGroup]="productForm" class="user-form">
+    <div class="form-group">
+        <label for="warehouse">Warehouse :</label>
+        <select formControlName="warehouse">
+            <option value="">Select a Warehouse</option>
+            <option *ngFor="let warehouse of warehouses | async" [ngValue]="warehouse">
+                {{ warehouse.warehouseName }}
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" formControlName="productName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="productDescription">Product Description:</label>
+        <input type="text" id="productDescription" formControlName="productDescription" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="quantity">Quantity :</label>
+        <input type="number" id="quantity" formControlName="quantity" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="price">Price :</label>
+        <input type="number" id="price" formControlName="price" class="form-control" />
     </div>
 
-    <!-- Warehouse ID -->
-    <div class="form-control">
-      <label>Warehouse ID</label>
-      <input
-        type="number"
-        formControlName="warehouseId"
-        required
-      >
-      <div *ngIf="productForm.get('warehouseId')?.invalid && productForm.get('warehouseId')?.touched">
-        <small>Warehouse ID is required.</small>
-      </div>
-    </div>
+    <button type="submit" class="btn-submit">Create Product</button>
 
-    <!-- Product Name -->
-    <div class="form-control">
-      <label>Product Name</label>
-      <input
-        type="text"
-        formControlName="productName"
-        required
-      >
-      <div *ngIf="productForm.get('productName')?.invalid && productForm.get('productName')?.touched">
-        <small>Product Name is required.</small>
-      </div>
-    </div>
+    <ng-container>
+        <div *ngIf="productError | async as error" class="error">
+            {{ error }}
+        </div>
+        <div *ngIf="productSuccess | async as msg" class="success">
+            {{ msg }}
+        </div>
+    </ng-container>
 
-    <!-- Product Description -->
-    <div class="form-control">
-      <label>Product Description</label>
-      <textarea
-        formControlName="productDescription"
-        required
-      ></textarea>
-    </div>
-
-    <!-- Quantity -->
-    <div class="form-control">
-      <label>Quantity</label>
-      <input
-        type="number"
-        formControlName="quantity"
-        required
-      >
-      <div *ngIf="productForm.get('quantity')?.invalid && productForm.get('quantity')?.touched">
-        <small>Quantity is required and cannot be negative.</small>
-      </div>
-    </div>
-
-    <!-- Price -->
-    <div class="form-control">
-      <label>Price</label>
-      <input
-        type="number"
-        formControlName="price"
-        required
-      >
-      <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">
-        <small>Price is required and must be greater than 0.</small>
-      </div>
-    </div>
-
-    <!-- Submit -->
-    <button type="submit" [disabled]="productForm.invalid">
-      Submit
-    </button>
-
-  </form>
-</div>
+    <a routerLink="/supplylink" class="task-list" class="task-list">Dashboard</a>
+</form>

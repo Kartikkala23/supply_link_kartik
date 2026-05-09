@@ -1,22 +1,19 @@
 package com.edutech.progressive.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.*;
 
 @Entity
 public class Insurance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int insuranceId;
-    @ManyToOne()
+
+    @ManyToOne
     @JoinColumn(name = "shipmentId")
     private Shipment shipment;
+
     private String insuranceProvider;
     private Long insuranceCoverageAmount;
 
@@ -25,12 +22,6 @@ public class Insurance {
 
     public Insurance(int insuranceId, Shipment shipment, String insuranceProvider, Long insuranceCoverageAmount) {
         this.insuranceId = insuranceId;
-        this.shipment = shipment;
-        this.insuranceProvider = insuranceProvider;
-        this.insuranceCoverageAmount = insuranceCoverageAmount;
-    }
-
-    public Insurance(Shipment shipment, String insuranceProvider, Long insuranceCoverageAmount) {
         this.shipment = shipment;
         this.insuranceProvider = insuranceProvider;
         this.insuranceCoverageAmount = insuranceCoverageAmount;
@@ -67,5 +58,4 @@ public class Insurance {
     public void setInsuranceCoverageAmount(Long insuranceCoverageAmount) {
         this.insuranceCoverageAmount = insuranceCoverageAmount;
     }
-
 }

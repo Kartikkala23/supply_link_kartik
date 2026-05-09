@@ -1,15 +1,13 @@
 package com.edutech.progressive.service.impl;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.edutech.progressive.dao.ProductDAO;
 import com.edutech.progressive.entity.Product;
 import com.edutech.progressive.service.ProductService;
 
-public class ProductServiceImplJdbc implements ProductService 
-{
+public class ProductServiceImplJdbc implements ProductService {
     private ProductDAO productDAO;
 
     public ProductServiceImplJdbc(ProductDAO productDAO) {
@@ -17,55 +15,57 @@ public class ProductServiceImplJdbc implements ProductService
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts() throws SQLException {
         try {
             return productDAO.getAllProducts();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw e;
+        } finally {
+
         }
-        return new ArrayList<>();
     }
 
     @Override
-    public Product getProductById(int productId) {
+    public Product getProductById(int productId) throws SQLException {
         try {
             return productDAO.getProductById(productId);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw e;
+        } finally {
+
         }
-        return null;
     }
 
     @Override
-    public int addProduct(Product product)  {
+    public int addProduct(Product product) throws SQLException {
         try {
             return productDAO.addProduct(product);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw e;
+        } finally {
+
         }
-        return -1;
     }
 
     @Override
-    public void updateProduct(Product product) {
+    public void updateProduct(Product product) throws SQLException {
         try {
             productDAO.updateProduct(product);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw e;
+        } finally {
+
         }
     }
 
     @Override
-    public void deleteProduct(int productId){
+    public void deleteProduct(int productId) throws SQLException {
         try {
             productDAO.deleteProduct(productId);
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw e;
+        } finally {
         }
     }
+
 }

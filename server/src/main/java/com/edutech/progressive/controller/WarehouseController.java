@@ -1,9 +1,11 @@
 package com.edutech.progressive.controller;
 
 import com.edutech.progressive.entity.Warehouse;
+import com.edutech.progressive.service.WarehouseService;
 import com.edutech.progressive.service.impl.WarehouseServiceImplJpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -45,7 +48,7 @@ public class WarehouseController {
     }
     
     @DeleteMapping("/{warehouseId}")
-    public ResponseEntity<Void> deleteWarehouse(@PathVariable int warehouseId) {
+    public ResponseEntity<Void> deleteWarehouse(@PathVariable int warehouseId) throws SQLException {
         warehouseServiceImplJpa.deleteWarehouse(warehouseId);
         return ResponseEntity.status(204).build();
     }

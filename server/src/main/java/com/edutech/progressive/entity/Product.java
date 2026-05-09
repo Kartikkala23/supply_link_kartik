@@ -7,32 +7,31 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int productId;
-    
+
     @ManyToOne
-    @JoinColumn(name = " warehouse_id")
+    @JoinColumn(name = "warehouse_id")
+    @JsonIgnoreProperties({"products", "supplier"})
     private Warehouse warehouse;
 
     private String productName;
-
     private String productDescription;
-
     private int quantity;
-
     private Long price;
 
     public Product() {
     }
 
-    public Product(int productId, Warehouse warehouseId, String productName, String productDescription, int quantity,
-            Long price) {
+    public Product(int productId, Warehouse warehouse, String productName, String productDescription, int quantity, Long price) {
         this.productId = productId;
-        this.warehouse = warehouseId;
+        this.warehouse = warehouse;
         this.productName = productName;
         this.productDescription = productDescription;
         this.quantity = quantity;
@@ -86,5 +85,4 @@ public class Product {
     public void setPrice(Long price) {
         this.price = price;
     }
-
 }

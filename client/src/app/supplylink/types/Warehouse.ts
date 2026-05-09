@@ -1,6 +1,7 @@
 import { Supplier } from "./Supplier";
 
 export class Warehouse {
+    [x: string]: any;
     warehouseId: number;
     supplier: Supplier;
     warehouseName: string;

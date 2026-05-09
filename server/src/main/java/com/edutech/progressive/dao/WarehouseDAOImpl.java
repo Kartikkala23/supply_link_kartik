@@ -1,6 +1,7 @@
 package com.edutech.progressive.dao;
 
 import com.edutech.progressive.config.DatabaseConnectionManager;
+import com.edutech.progressive.entity.Supplier;
 import com.edutech.progressive.entity.Warehouse;
 
 import java.sql.Connection;
@@ -52,7 +53,11 @@ public class WarehouseDAOImpl implements WarehouseDAO {
                 if (rs.next()) {
                     Warehouse warehouse = new Warehouse();
                     warehouse.setWarehouseId(rs.getInt("warehouse_id"));
-                   warehouse.getSupplier().setSupplierId(rs.getInt("supplier_id"));
+
+                    Supplier supplier = new Supplier();
+                    supplier.setSupplierId(rs.getInt("supplier_id"));
+                    warehouse.setSupplier(supplier);
+
                     warehouse.setWarehouseName(rs.getString("warehouse_name"));
                     warehouse.setLocation(rs.getString("location"));
                     warehouse.setCapacity(rs.getInt("capacity"));
@@ -105,7 +110,11 @@ public class WarehouseDAOImpl implements WarehouseDAO {
             while (rs.next()) {
                 Warehouse warehouse = new Warehouse();
                 warehouse.setWarehouseId(rs.getInt("warehouse_id"));
-               warehouse.getSupplier().setSupplierId(rs.getInt("supplier_id"));
+
+                Supplier supplier = new Supplier();
+                supplier.setSupplierId(rs.getInt("supplier_id"));
+                warehouse.setSupplier(supplier);
+
                 warehouse.setWarehouseName(rs.getString("warehouse_name"));
                 warehouse.setLocation(rs.getString("location"));
                 warehouse.setCapacity(rs.getInt("capacity"));
@@ -113,6 +122,7 @@ public class WarehouseDAOImpl implements WarehouseDAO {
                 warehouses.add(warehouse);
             }
         }
+
         return warehouses;
     }
 }

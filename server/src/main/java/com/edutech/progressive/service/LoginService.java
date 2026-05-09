@@ -9,17 +9,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LoginService implements UserDetailsService {
@@ -38,7 +33,7 @@ public class LoginService implements UserDetailsService {
         return supplierRepository.findAll();
     }
 
-    public Optional<Supplier> getUserById(int userId) {
+    public Optional<Supplier> getUserById(Integer userId) {
         return supplierRepository.findById(userId);
     }
 
@@ -60,7 +55,7 @@ public class LoginService implements UserDetailsService {
         return supplierRepository.save(user);
     }
 
-    public void deleteUser(int id) {
+    public void deleteUser(Integer id) {
         supplierRepository.deleteBySupplierId(id);
     }
 

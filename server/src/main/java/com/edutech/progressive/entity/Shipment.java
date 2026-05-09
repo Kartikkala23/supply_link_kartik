@@ -1,27 +1,19 @@
 package com.edutech.progressive.entity;
-
+import javax.persistence.*;
 import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 @Entity
 public class Shipment {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int shipmentId;
-    
-    @ManyToOne
-    @JoinColumn(name = "product_id")
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="productId")
     private Product product;
-    
-    @ManyToOne
-    @JoinColumn(name = "warehouse_id")
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="warehouseId")
     private Warehouse warehouse;
 
     private Date shipmentDate;
@@ -37,8 +29,7 @@ public class Shipment {
     public Shipment() {
     }
 
-    public Shipment(int shipmentId, Product product, Warehouse warehouse, Date shipmentDate, Date expectedDeliveryDate,
-            String sourceLocation, String destinationLocation, String status) {
+    public Shipment(int shipmentId, Product product, Warehouse warehouse, Date shipmentDate, Date expectedDeliveryDate, String sourceLocation, String destinationLocation, String status) {
         this.shipmentId = shipmentId;
         this.product = product;
         this.warehouse = warehouse;
@@ -112,7 +103,4 @@ public class Shipment {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    
-
 }
