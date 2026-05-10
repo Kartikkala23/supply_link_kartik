@@ -33,7 +33,9 @@ export class ProductComponent implements OnInit {
       quantity: [null, [Validators.required, Validators.min(0)]],
       price: [null, [Validators.required, Validators.min(1)]],
     });
-    this.warehouses = this.supplyLinkService.getWarehousesBySupplier(this.userId);
+    this.warehouses = this.supplyLinkService.getAllWarehouses();
+    console.log(this.warehouses);
+    
   }
 
   onSubmit() {

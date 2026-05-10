@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -48,7 +47,7 @@ public class WarehouseController {
     }
     
     @DeleteMapping("/{warehouseId}")
-    public ResponseEntity<Void> deleteWarehouse(@PathVariable int warehouseId) throws SQLException {
+    public ResponseEntity<Void> deleteWarehouse(@PathVariable int warehouseId) {
         warehouseServiceImplJpa.deleteWarehouse(warehouseId);
         return ResponseEntity.status(204).build();
     }

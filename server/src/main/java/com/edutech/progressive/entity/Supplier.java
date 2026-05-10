@@ -98,7 +98,6 @@ public class Supplier implements Comparable<Supplier> {
 
     @Override
     public int compareTo(Supplier otherSupplier) {
-        // Implement comparison logic based on account balance
         return this.getSupplierName().compareTo(otherSupplier.getSupplierName());
     }
 }
